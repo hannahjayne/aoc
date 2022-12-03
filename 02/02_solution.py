@@ -1,12 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Dec 2 23:23:36 2022
-
-@author: Hannah
-"""
-
-
-FILE_NAME = "input"
+ FILE_NAME = "input"
 LOSS, DRAW, WIN = 0, 3, 6 
 
 """
