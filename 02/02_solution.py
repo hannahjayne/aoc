@@ -1,4 +1,4 @@
- FILE_NAME = "input"
+FILE_NAME = "input"
 LOSS, DRAW, WIN = 0, 3, 6 
 
 """
@@ -8,7 +8,6 @@ Takes the file, and whichever function we want to use as parameters; returns ove
 def total_score(file_name, function):
     
     file = open(file_name, "r")
-    
     total_score = 0
     
     for line in file:
@@ -18,7 +17,7 @@ def total_score(file_name, function):
 
     file.close()
 
-
+#TASK ONE
 """
 Deduces the score for each round, subject to problem one's condition's
 That is: opponent's A=Rock, B=Paper, C=Scissors and [your choice] is X=Rock, Y=Paper, Z=Scissors
@@ -42,7 +41,8 @@ def problem_one(opponent, you):
     #otherwise, if the two other conditions arent met there's one option left and you've lost 
     else: 
         return LOSS + your_choice +1
-         
+        
+#TASK TWO
 """
 Deduces the score for each round, subject to problem two's condition's
 That is: opponent's A=Rock, B=Paper, C=Scissors and [your choice] is X=Lose, Y=Draw, Z=Win
@@ -64,6 +64,6 @@ def problem_two(opponent, you):
     else:
         return WIN + ((opponent_choice + 1) %3) + 1 #then to win we'd pick the option "after" opponent's choice
     
-    
+#PRINT SOLUTIONS
 print(total_score(FILE_NAME, problem_one))
 print(total_score(FILE_NAME, problem_two))
