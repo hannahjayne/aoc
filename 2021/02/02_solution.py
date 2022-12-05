@@ -3,7 +3,8 @@ FILE = "input"
 #TASK ONE
 def task_one(file):
     
-    x, y = 0, 0
+    #where x, y are horizontal and vertical positions
+    x, y = 0, 0 
 
     for line in file:
         if line[0] == "f": x += int(line[-2])
@@ -14,7 +15,8 @@ def task_one(file):
 
 #TASK TWO
 def task_two(file):
-
+    
+    #where a is the aim
     x, y, a = 0, 0, 0
     
     for line in file:
