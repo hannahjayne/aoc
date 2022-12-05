@@ -17,7 +17,7 @@ def task_one(file):
     
     return counter        
 
-#alternate method for task one - why would you do it this way, silly!!!
+#alternate method for task one - thought this *could* be easier but i didn't adapt it for task_two
 def task_one_alt(file):
     lines = file.readlines()
     lines = list(zip(lines, lines[1:]+lines[:1]))[:-1]
