@@ -1,4 +1,5 @@
 FILE = "input"
+ 
 
 """
 Gets the priority score for individual items with ord(); A-Z need to score between 27-52; a-z need to score between 1-26.

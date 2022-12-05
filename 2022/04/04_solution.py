@@ -1,20 +1,19 @@
-FILE = "input"
-
-#Takes a line from file; converts elf ranges to a list of two sets
-def convert_ranges(line):
-    elfs = line[:-1].split(",") #splitting into list with: [elf1, elf2]
-    elfs = [set(range(int(elf.split("-")[0]), int(elf.split("-")[1])+1)) for elf in elfs]  #converting that list into two ranges
-    return elfs
+FILE = "input" 
 
 #Iterates through the lines of a file, using convert_ranges; then counts overlap depending on what task conditions are & returns count
 def count_overlaps(file, task):
     counter = 0
     for line in file:
-        elfs = convert_ranges(line)
-        counter += task(elfs)
+        elfs = convert_ranges(line) #see below: converts line to list of two sets, representing the elf ranges
+        counter += task(elfs) 
         
     return counter 
 
+#Takes a line from file; converts elf ranges to a list of two sets, wherein the sets are the tasks covered
+def convert_ranges(line):
+    elfs = line[:-1].split(",") #splitting into list with , to separate the elfs 
+    elfs = [set(range(int(elf.split("-")[0]), int(elf.split("-")[1])+1)) for elf in elfs]  #converting that list into two ranges, then to sets - noting range is non-inclusive of end value hence +1
+    return elfs 
 
 #TASK ONE: takes intersection, and if it's equal to either of the elf sets it returns 1 to add to count
 def task_one(elfs):
