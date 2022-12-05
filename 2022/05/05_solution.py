@@ -1,13 +1,12 @@
 FILE = "input"
 
-#letter_distance is used for reading file; it's the distance between crate labels
-#so between X and Y for [X] [Y] the distance is 4 
-letter_distance = 4 
-
+# CONSTANTS#
+LETTER_DIST = 4 #letter_distance is used for reading file; it's the distance between crate labels
+N, A, B = 1, 3, 5 #N is number of crates moved; A is source stack; B is destination stack
 
 ### SET UP ### 
 
-#Gets the initial crates as a dictionary. Keys are stack numbers; values are strings of stacks
+#Gets the initial stacks of crates as a dictionary. Keys are stack numbers; values are lists of stacks
 def get_initial_stacks(lines):
     
     for line in lines: #We find the end of lines of crates by getting "label row" 
@@ -20,17 +19,17 @@ def get_initial_stacks(lines):
     stacks = dict.fromkeys(range(1, stack_count +1),"") 
     
     for row in rows: #now for every row of crates     
-        for i in range(1, len(row), letter_distance): #we iterate through each crate, using letter distance as step
-            stack_no = int((i-1)/letter_distance) +1  #and we can dedduce stack_number with letter distance, as they're aligned
-            if row[i] != " ": stacks[stack_no] += row[i] 
+        for i in range(1, len(row), LETTER_DIST): #we iterate through each crate, using letter distance as step
+            stack_no = int((i-1)/LETTER_DIST) + 1  #and now we can deduce stack_number with letter distance, as they're aligned
+            if row[i] != " ": stacks[stack_no] += row[i] #also - only appends if crate exists!
      
-    #had issues appending dictionary of lists - so im converting from strings -> lists after the fact
+    #there were issues creating values as lists - so im converting from strings -> lists afterwards. might fix later.
     for i in range(1, stack_count+1): stacks[i] = list(stacks[i])
     
     return stacks
 
 
-#Takes file, and task function and returns result
+#Takes file, establishes stacks&instructions; then iterates through instructions, and performs whatever task function is used to get result
 def do_task(task, file_name=FILE):
     
     file = open(FILE, "r")
@@ -44,8 +43,8 @@ def do_task(task, file_name=FILE):
     #then parse instructions & move crates in stacks depending on which task function is called
     for line in instructions:
         get_numbers= line.split(" ")
-        n, a, b  = int(get_numbers[1]), int(get_numbers[3]), int(get_numbers[5][:-1])
-        stacks = task(n,a,b,stacks)
+        n, a, b  = int(get_numbers[N]), int(get_numbers[A]), int(get_numbers[B][:-1])
+        stacks = task(n, a , b, stacks)
       
     #result is top crate so we just pop each off the top
     result = [stacks[x].pop() for x in range(1, len(stacks)+1)]
