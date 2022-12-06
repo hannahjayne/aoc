@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
  
 import numpy as np
-
 FILE = "input"
- 
 
 #ORIGINALLY: diagram was going to resize whenever it encountered a number bigger than itself - however this didnt work
 #Unhappy with cheating it to be this size. I'll try to fix it another time.
@@ -19,7 +17,7 @@ def do_task(task,file_name = FILE):
         segments = line[:-1].split(" -> ") 
         segments = [list(map(int, x.split(","))) for x in segments] #gets list of co-ords 
 
-        #renaming them, for the sake of readability
+        #renaming them, for the sake of readability, but we have [x1,y1] -> [x2,y2] naturally with the former being the starting point
         y1, y2, x1, x2 = segments[0][0], segments[1][0], segments[0][1], segments[1][1] 
         task(x1,x2,y1,y2, diagram) #task function will "draw" lines on diagram depending on task criteria
     
@@ -38,17 +36,17 @@ def task_one(x1, x2, y1, y2, diagram):
 #TASK TWO: incremenets all lines, including diagonals
 def task_two(x1, x2, y1, y2, diagram):
     
-    #same as task_one()... 
+    #same as task_one... noting that I could have called that function here instead 
     if x1 == x2: diagram[x1, min(y1,y2):max(y1+1,y2+1)] += 1
     elif y1 == y2: diagram[min(x1, x2):max(x1+1, x2+1),y1] += 1 
     
-    #for diagonals: check direction by comparing x1,x2 and y1,y2; set to neg if going in neg direction
+    #then, for diagonals: check direction, and set x, 1 to neg if going in neg direction so we increment properly in for loop
     else:
         x, y = 1, 1  
         if not bool(x2-x1 >0): x = -1 
         if not bool(y2-y1 > 0): y = -1 
             
-        #and then use for loop, and increment each cell on diagonal 
+        #and then use for loop starting at x1, y1 and going +-1 on the diagonal, depending on direction 
         for i in range(0, abs(x1-x2)+1): diagram[x1+(x*i), y1+(y*i)] += 1
     
     return diagram
