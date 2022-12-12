@@ -9,19 +9,19 @@ STRENGTH_CYCLES = [20, 60, 100, 140, 180, 220]
 DIMENSIONS = (6,40)
 
 def do_tasks(task, file_name = FILE):
-    file = open(file_name, "r")
-    instructions = file.readlines()
-    file.close()
-    
-    print(task(get_actions(instructions)))
+    actions = get_actions(file_name)
+    print(task(actions))
     return 
 
 
 #Get's actions as dictionary, wherein key is the cycle the action is executed and value is action done to x
-def get_actions(instructions):
+def get_actions(file_name =FILE):
+    
+    file = open(file_name, "r")
+    
     current_cycle, actions = 0, {}
     
-    for each in instructions:
+    for each in file:
         if each[0:4] == "addx": #so if we have to add x...
             value = int(each.split()[1])
             actions[current_cycle + ADDX_LEN] = value  #executes on current cycle + length of time for addx
@@ -29,6 +29,7 @@ def get_actions(instructions):
             
         else: current_cycle +=1 #otherwise it's noop! we just keep on truckin' 
         
+    file.close()
     return actions
    
 
@@ -78,8 +79,5 @@ def task_two(actions):
      
  
  
-            
-   
-        
 
  
