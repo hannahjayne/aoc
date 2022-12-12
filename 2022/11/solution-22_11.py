@@ -69,7 +69,7 @@ def make_monkeys(file_name):
         
         Monkey(number, items, operation, test, if_true, if_false)
          
-#TASK ONE: Gets naughtiness score after so many rounds, with relief level 
+#Gets naughtiness score after so many rounds, with relief level 
 def get_naughtiness(rounds = 20, relief_level =3): 
 
     Monkey.relief_level = relief_level    
